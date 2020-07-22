@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habib - Bank</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-area">
+        <h1 class="text-center">Welcome to Habib Bank</h1>
+<div class="submit-area">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" class="form-control" required>
+    <br>
+    <input type="password" placeholder="Password" class="form-control" required>
+    <br>
+    <button id="login" class="btn btn-success" >Enter</button>
+</div>
+    </div>
+
+<!-- first section ended -->
+
+<div id="transactionArea">
+    <h1>Transaction Area</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="deposit status">
+                <h5>Deposit</h5>
+                <h2>$ <span id="depositText">00</span></h2>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            <div class="withdraw status">
+                <h5>Withdraw</h5>
+            <h2 >$ <span id="withdrawBalance">00</span></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="balance status">
+                <h5>Balance</h5>
+            <h2 >$ <span id="currentBalance">1200</span> </h2>
+        </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Deposit</h4>
+                <input type="text"  id="depositAmount" class="form-control" placeholder="Enter amount to deposit"> <br>
+                <button id="depositBtn" class="btn btn-success">Deposit</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Withdraw</h4>
+                <input type="text"  id="withdrawInput" class="form-control" placeholder="Enter amount to withdraw">
+                <br>
+                <button id="withdrawBtn" class="btn btn-success" >Withdraw</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        // login event handler 
+       const loginBtn = document.getElementById("login");
+       loginBtn.addEventListener("click", function(){
+          const loginArea = document.getElementById("login-area");
+          loginArea.style.display='none';
+
+          const transactionArea = document.getElementById("transactionArea");
+          transactionArea.style.display= "block";
+       })
+
+    //    deposit event handler 
+       const depositBtn = document.getElementById("depositBtn");
+       depositBtn.addEventListener("click", function(){
+           const depositAmount = document.getElementById("depositAmount").value;
+           const depositNumber = parseFloat(depositAmount); //adding
+
+            getSpanText("depositText", depositNumber);
+            getSpanText("currentBalance", depositNumber);
+
+            document.getElementById("depositAmount").value = '';
+       })
+
+    //    deposit event handler 
+const withdrawBtn = document.getElementById('withdrawBtn');
+withdrawBtn.addEventListener("click", function(){
+    const withdrawInput = document.getElementById('withdrawInput').value;
+    const withdrawInputNumber = parseFloat(withdrawInput);
+
+    getSpanText("withdrawBalance", withdrawInputNumber);
+    getSpanText("currentBalance", -1*withdrawInputNumber);
+
+    document.getElementById('withdrawInput').value='';
+})
+
+       function getSpanText(id, depositNumber){
+        const current = document.getElementById(id).innerText;
+        const balanceNumber = parseFloat(current);
+        const totalBalance = depositNumber + balanceNumber;
+        document.getElementById(id).innerText = totalBalance;
+       }
+
+    </script>
+</body>
+</html>
